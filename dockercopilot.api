@@ -93,31 +93,31 @@ type VersionReq {
 
 service dockerCopilot {
 	@handler webindex
-		get /
+	get /
 }
 
-@server(
+@server (
 	prefix: /api
-	group: auth
+	group:  auth
 )
 service dockerCopilot {
 	@handler Login
-		post /auth (LoginReq) returns (Resp)
+	post /auth (LoginReq) returns (Resp)
 }
 
-@server(
+@server (
 	prefix: /api
-	group: progress
+	group:  progress
 )
 service dockerCopilot {
 	@handler GetProgress
-		get /progress/:taskid (GetProgressReq) returns (Resp)
+	get /progress/:taskid (GetProgressReq) returns (Resp)
 }
 
-@server(
+@server (
 	prefix: /api
-	group: container
-	jwt: Auth
+	group:  container
+	jwt:    Auth
 )
 service dockerCopilot {
 	@handler containersList
@@ -148,16 +148,16 @@ service dockerCopilot {
 	get /container/listBackups returns (Resp)
 
 	@handler restore
-		post /container/backups/restore (ContainerRestoreReq) returns (Resp)
+	post /container/backups/restore (ContainerRestoreReq) returns (Resp)
 
 	@handler delRestore
-		delete /container/backups (DelContainerBackupReq) returns (Resp)
+	delete /container/backups (DelContainerBackupReq) returns (Resp)
 }
 
-@server(
+@server (
 	prefix: /api
-	group: image
-	jwt: Auth
+	group:  image
+	jwt:    Auth
 )
 service dockerCopilot {
 	@handler imagesList
@@ -167,16 +167,16 @@ service dockerCopilot {
 	delete /image/:id (RemoveImageReq) returns (Resp)
 }
 
-@server(
+@server (
 	prefix: /api
-	group: version
-	jwt: Auth
+	group:  version
+	jwt:    Auth
 )
 service dockerCopilot {
 	@handler version
-		get /version (VersionReq) returns (Resp)
+	get /version (VersionReq) returns (Resp)
 
 	@handler updateProgram
-		put /program returns (Resp)
+	put /program returns (Resp)
 }
 
