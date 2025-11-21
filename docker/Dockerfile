@@ -1,6 +1,5 @@
 # 使用 Alpine 作为基础镜像
 FROM alpine
-LABEL authors="onlyLTY"
 WORKDIR /app
 
 ARG TARGETPLATFORM
