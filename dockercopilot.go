@@ -1,11 +1,16 @@
 package main
 
 import (
+	"dockerCopilot/internal/config"
+	"dockerCopilot/internal/handler"
+	"dockerCopilot/internal/svc"
+	"dockerCopilot/internal/utiles"
 	"flag"
 	"fmt"
-	"github.com/onlyLTY/dockerCopilot/internal/config"
-	"github.com/onlyLTY/dockerCopilot/internal/svc"
-	"github.com/onlyLTY/dockerCopilot/internal/utiles"
+	"go/types"
+	"net/http"
+	"os"
+
 	"github.com/robfig/cron/v3"
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -13,9 +18,6 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 	"github.com/zeromicro/x/errors"
 	xhttp "github.com/zeromicro/x/http"
-	"go/types"
-	"net/http"
-	"os"
 )
 
 ////go:embed front/*
@@ -57,6 +59,7 @@ func main() {
 		}))
 	defer server.Stop()
 	ctx := svc.NewServiceContext(c)
+	handler.RegisterHandlers(server, ctx)
 	list, err := utiles.GetImagesList(ctx)
 	if err != nil {
 		logx.Errorf("panic获取镜像列表出错: %v", err)

@@ -2,8 +2,9 @@ package utiles
 
 import (
 	"context"
+	"dockerCopilot/internal/svc"
+
 	"github.com/docker/docker/api/types"
-	"github.com/onlyLTY/dockerCopilot/internal/svc"
 )
 
 func GetContainerInspect(ctx *svc.ServiceContext, id string) (types.ContainerJSON, error) {

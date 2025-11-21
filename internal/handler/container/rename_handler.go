@@ -1,11 +1,12 @@
 package container
 
 import (
-	"github.com/onlyLTY/dockerCopilot/internal/logic/container"
-	"github.com/onlyLTY/dockerCopilot/internal/svc"
-	"github.com/onlyLTY/dockerCopilot/internal/types"
-	"github.com/zeromicro/go-zero/rest/httpx"
+	"dockerCopilot/internal/logic/container"
+	"dockerCopilot/internal/svc"
+	"dockerCopilot/internal/types"
 	"net/http"
+
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 func RenameHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

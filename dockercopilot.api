@@ -91,6 +91,10 @@ type VersionReq {
 	Type string `form:"type"`
 }
 
+type UploadReq {
+	Name string `form:"name"`
+}
+
 service dockerCopilot {
 	@handler webindex
 	get /
@@ -117,7 +121,6 @@ service dockerCopilot {
 @server (
 	prefix: /api
 	group:  container
-	jwt:    Auth
 )
 service dockerCopilot {
 	@handler containersList
@@ -157,7 +160,6 @@ service dockerCopilot {
 @server (
 	prefix: /api
 	group:  image
-	jwt:    Auth
 )
 service dockerCopilot {
 	@handler imagesList
@@ -165,6 +167,9 @@ service dockerCopilot {
 
 	@handler remove
 	delete /image/:id (RemoveImageReq) returns (Resp)
+
+	@handler upload
+	post /image/upload (UploadReq) returns (Resp)
 }
 
 @server (

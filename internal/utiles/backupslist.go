@@ -1,7 +1,7 @@
 package utiles
 
 import (
-	"github.com/onlyLTY/dockerCopilot/internal/svc"
+	"dockerCopilot/internal/svc"
 	"os"
 	"path/filepath"
 )

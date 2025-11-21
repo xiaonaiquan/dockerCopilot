@@ -1,17 +1,18 @@
 package module
 
 import (
+	"dockerCopilot/internal/types"
 	"encoding/json"
 	"errors"
 	"fmt"
-	ref "github.com/distribution/reference"
-	"github.com/onlyLTY/dockerCopilot/internal/types"
-	"github.com/zeromicro/go-zero/core/logx"
 	"io"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
+
+	ref "github.com/distribution/reference"
+	"github.com/zeromicro/go-zero/core/logx"
 )
 
 const ChallengeHeader = "WWW-Authenticate"

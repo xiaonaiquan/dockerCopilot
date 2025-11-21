@@ -3,14 +3,15 @@ package utiles
 import (
 	"archive/tar"
 	"compress/gzip"
+	"dockerCopilot/internal/svc"
 	"fmt"
-	"github.com/onlyLTY/dockerCopilot/internal/svc"
-	"github.com/zeromicro/go-zero/core/logx"
 	"io"
 	"net/http"
 	"os"
 	"runtime"
 	"strings"
+
+	"github.com/zeromicro/go-zero/core/logx"
 )
 
 func UpdateProgram(ctx *svc.ServiceContext) error {
@@ -19,7 +20,7 @@ func UpdateProgram(ctx *svc.ServiceContext) error {
 		githubProxy = strings.TrimRight(githubProxy, "/") + "/"
 	}
 	versionURL := githubProxy + "https://raw.githubusercontent.com/onlyLTY/dockerCopilot/UGREEN/version"
-	releaseBaseURL := githubProxy + "https://github.com/onlyLTY/dockerCopilot/releases/download"
+	releaseBaseURL := githubProxy + "https://dockerCopilot/releases/download"
 	logx.Infof("versionURL: %s", versionURL)
 	resp, err := http.Get(versionURL)
 	if err != nil {

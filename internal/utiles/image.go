@@ -2,12 +2,13 @@ package utiles
 
 import (
 	"context"
+	"dockerCopilot/internal/svc"
+	MyType "dockerCopilot/internal/types"
 	"fmt"
-	"github.com/docker/docker/api/types/image"
-	"github.com/onlyLTY/dockerCopilot/internal/svc"
-	MyType "github.com/onlyLTY/dockerCopilot/internal/types"
 	"log"
 	"strings"
+
+	"github.com/docker/docker/api/types/image"
 )
 
 func GetImagesList(ctx *svc.ServiceContext) ([]MyType.Image, error) {

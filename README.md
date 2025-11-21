@@ -44,3 +44,6 @@ services:
 
 go版本：1.21+
 
+goctl api go -api dockercopilot.api -dir ./ --style go_zero
+
+GOOS=linux GOARCH=amd64 go build -o dockerCopilot-amd64 

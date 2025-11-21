@@ -2,11 +2,14 @@ package container
 
 import (
 	"context"
-	"github.com/onlyLTY/dockerCopilot/internal/utiles"
+	"dockerCopilot/internal/utiles"
+	"encoding/base64"
+	"os"
+	"path/filepath"
 	"time"
 
-	"github.com/onlyLTY/dockerCopilot/internal/svc"
-	"github.com/onlyLTY/dockerCopilot/internal/types"
+	"dockerCopilot/internal/svc"
+	"dockerCopilot/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -26,6 +29,7 @@ type Info struct {
 	CreateTime  string `json:"createTime"`
 	RunningTime string `json:"runningTime"`
 	HaveUpdate  bool   `json:"haveUpdate"`
+	LocalImage  string `json:"localImage"`
 }
 
 func NewContainersListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ContainersListLogic {
@@ -76,6 +80,25 @@ func (l *ContainersListLogic) ContainersList() (resp *types.Resp, err error) {
 		containerInfo.CreateTime = t.Format("2006-01-02 15:04:05")
 		containerInfo.RunningTime = v.Status
 		containerInfo.HaveUpdate = v.Update
+
+		basePath := os.Getenv("UPLOAD_DIR")
+		if basePath == "" {
+			basePath = "/data/uploads"
+		}
+		if containerInfo.Name != "" {
+			exts := []string{".jpg", ".jpeg", ".png", ".gif", ".webp", ".bmp"}
+			var imgData string
+			for _, ext := range exts {
+				p := filepath.Join(basePath, containerInfo.Name+ext)
+				b, readErr := os.ReadFile(p)
+				if readErr == nil {
+					imgData = base64.StdEncoding.EncodeToString(b)
+					break
+				}
+			}
+			containerInfo.LocalImage = imgData
+		}
+
 		containerInfoList = append(containerInfoList, containerInfo)
 	}
 	resp.Data = containerInfoList

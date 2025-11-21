@@ -6,12 +6,12 @@ package handler
 import (
 	"net/http"
 
-	auth "github.com/onlyLTY/dockerCopilot/internal/handler/auth"
-	container "github.com/onlyLTY/dockerCopilot/internal/handler/container"
-	image "github.com/onlyLTY/dockerCopilot/internal/handler/image"
-	progress "github.com/onlyLTY/dockerCopilot/internal/handler/progress"
-	version "github.com/onlyLTY/dockerCopilot/internal/handler/version"
-	"github.com/onlyLTY/dockerCopilot/internal/svc"
+	auth "dockerCopilot/internal/handler/auth"
+	container "dockerCopilot/internal/handler/container"
+	image "dockerCopilot/internal/handler/image"
+	progress "dockerCopilot/internal/handler/progress"
+	version "dockerCopilot/internal/handler/version"
+	"dockerCopilot/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
 )
@@ -96,7 +96,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: container.ContainersListHandler(serverCtx),
 			},
 		},
-		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 		rest.WithPrefix("/api"),
 	)
 
@@ -108,12 +107,16 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: image.RemoveHandler(serverCtx),
 			},
 			{
+				Method:  http.MethodPost,
+				Path:    "/image/upload",
+				Handler: image.UploadHandler(serverCtx),
+			},
+			{
 				Method:  http.MethodGet,
 				Path:    "/images",
 				Handler: image.ImagesListHandler(serverCtx),
 			},
 		},
-		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 		rest.WithPrefix("/api"),
 	)
 

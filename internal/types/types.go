@@ -77,6 +77,10 @@ type StopContainerReq struct {
 	Name string `json:"name"`
 }
 
+type UploadReq struct {
+	Name string `form:"name"`
+}
+
 type VerifyJwtReq struct {
 	Jwt string `form:"jwt,optional"`
 }

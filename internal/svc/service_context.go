@@ -1,12 +1,13 @@
 package svc
 
 import (
+	"dockerCopilot/internal/config"
+	"dockerCopilot/internal/module"
+	"sync"
+
 	"github.com/docker/docker/client"
-	"github.com/onlyLTY/dockerCopilot/internal/config"
-	"github.com/onlyLTY/dockerCopilot/internal/module"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest"
-	"sync"
 )
 
 type ServiceContext struct {

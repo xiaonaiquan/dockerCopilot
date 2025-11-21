@@ -2,11 +2,11 @@ package image
 
 import (
 	"context"
-	"github.com/onlyLTY/dockerCopilot/internal/utiles"
+	"dockerCopilot/internal/utiles"
 	"strings"
 
-	"github.com/onlyLTY/dockerCopilot/internal/svc"
-	"github.com/onlyLTY/dockerCopilot/internal/types"
+	"dockerCopilot/internal/svc"
+	"dockerCopilot/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

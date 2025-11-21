@@ -2,12 +2,13 @@ package version
 
 import (
 	"context"
-	"github.com/onlyLTY/dockerCopilot/internal/svc"
-	"github.com/onlyLTY/dockerCopilot/internal/types"
-	"github.com/onlyLTY/dockerCopilot/internal/utiles"
-	"github.com/zeromicro/go-zero/core/logx"
+	"dockerCopilot/internal/svc"
+	"dockerCopilot/internal/types"
+	"dockerCopilot/internal/utiles"
 	"os"
 	"time"
+
+	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type UpdateProgramLogic struct {

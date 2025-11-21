@@ -2,17 +2,18 @@ package module
 
 import (
 	"crypto/tls"
+	"dockerCopilot/internal/types"
 	"errors"
 	"fmt"
-	ref "github.com/distribution/reference"
-	"github.com/onlyLTY/dockerCopilot/internal/types"
-	"github.com/zeromicro/go-zero/core/logx"
 	"io"
 	"net"
 	"net/http"
 	url2 "net/url"
 	"strings"
 	"time"
+
+	ref "github.com/distribution/reference"
+	"github.com/zeromicro/go-zero/core/logx"
 )
 
 // ImageCheckList 检查更新处理后的镜像列表

@@ -2,13 +2,14 @@ package container
 
 import (
 	"context"
+	"dockerCopilot/internal/utiles"
 	"fmt"
-	"github.com/google/uuid"
-	"github.com/onlyLTY/dockerCopilot/internal/utiles"
 	"path/filepath"
 
-	"github.com/onlyLTY/dockerCopilot/internal/svc"
-	"github.com/onlyLTY/dockerCopilot/internal/types"
+	"github.com/google/uuid"
+
+	"dockerCopilot/internal/svc"
+	"dockerCopilot/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

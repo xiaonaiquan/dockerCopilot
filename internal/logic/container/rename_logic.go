@@ -2,10 +2,10 @@ package container
 
 import (
 	"context"
-	"github.com/onlyLTY/dockerCopilot/internal/utiles"
+	"dockerCopilot/internal/utiles"
 
-	"github.com/onlyLTY/dockerCopilot/internal/svc"
-	"github.com/onlyLTY/dockerCopilot/internal/types"
+	"dockerCopilot/internal/svc"
+	"dockerCopilot/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

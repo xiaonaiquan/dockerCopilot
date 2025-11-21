@@ -1,12 +1,13 @@
 package utiles
 
 import (
-	"github.com/onlyLTY/dockerCopilot/internal/config"
-	"github.com/zeromicro/go-zero/core/logx"
+	"dockerCopilot/internal/config"
 	"io"
 	"net/http"
 	"os"
 	"strings"
+
+	"github.com/zeromicro/go-zero/core/logx"
 )
 
 func GetRemoteVersion() (remoteVersion string, err error) {

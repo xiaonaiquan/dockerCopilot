@@ -1,11 +1,12 @@
 package auth
 
 import (
-	"github.com/onlyLTY/dockerCopilot/internal/logic/auth"
-	"github.com/onlyLTY/dockerCopilot/internal/svc"
-	"github.com/onlyLTY/dockerCopilot/internal/types"
-	"github.com/zeromicro/go-zero/rest/httpx"
+	"dockerCopilot/internal/logic/auth"
+	"dockerCopilot/internal/svc"
+	"dockerCopilot/internal/types"
 	"net/http"
+
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 func LoginHandler(ctx *svc.ServiceContext) http.HandlerFunc {
