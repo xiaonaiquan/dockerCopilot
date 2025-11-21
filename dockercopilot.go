@@ -1,11 +1,9 @@
 package main
 
 import (
-	"embed"
 	"flag"
 	"fmt"
 	"github.com/onlyLTY/dockerCopilot/internal/config"
-	"github.com/onlyLTY/dockerCopilot/internal/handler"
 	"github.com/onlyLTY/dockerCopilot/internal/svc"
 	"github.com/onlyLTY/dockerCopilot/internal/utiles"
 	"github.com/robfig/cron/v3"
@@ -16,14 +14,12 @@ import (
 	"github.com/zeromicro/x/errors"
 	xhttp "github.com/zeromicro/x/http"
 	"go/types"
-	"io/fs"
-	"log"
 	"net/http"
 	"os"
 )
 
-//go:embed front/*
-var embeddedFront embed.FS
+////go:embed front/*
+//var embeddedFront embed.FS
 
 var configFile = flag.String("f", "etc/dockerCopilot.yaml", "the config file")
 
@@ -98,55 +94,54 @@ func main() {
 			}
 		}
 	})
-	handler.RegisterHandlers(server, ctx)
-	RegisterHandlers(server)
 	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)
 	logx.Info("程序版本" + config.Version)
 	server.Start()
 }
-func RegisterHandlers(engine *rest.Server) {
-	frontFS, err := fs.Sub(embeddedFront, "front")
-	if err != nil {
-		log.Fatal(err)
-	}
 
-	frontFileServer := http.StripPrefix("/manager", http.FileServer(http.FS(frontFS)))
-
-	assetsHandler := http.FileServer(http.FS(frontFS))
-
-	engine.AddRoutes(
-		[]rest.Route{
-			{
-				Method: http.MethodGet,
-				Path:   "/manager",
-				Handler: func(w http.ResponseWriter, r *http.Request) {
-					frontFileServer.ServeHTTP(w, r)
-				},
-			},
-			{
-				Method: http.MethodGet,
-				Path:   "/manager/:path",
-				Handler: func(w http.ResponseWriter, r *http.Request) {
-					frontFileServer.ServeHTTP(w, r)
-				},
-			},
-			{
-				Method: http.MethodGet,
-				Path:   "/manager/assets/:path",
-				Handler: func(w http.ResponseWriter, r *http.Request) {
-					frontFileServer.ServeHTTP(w, r)
-				},
-			},
-			{
-				Method: http.MethodGet,
-				Path:   "/assets/:path",
-				Handler: func(w http.ResponseWriter, r *http.Request) {
-					assetsHandler.ServeHTTP(w, r)
-				},
-			},
-		},
-	)
-}
+//func RegisterHandlers(engine *rest.Server) {
+//	frontFS, err := fs.Sub(embeddedFront, "front")
+//	if err != nil {
+//		log.Fatal(err)
+//	}
+//
+//	frontFileServer := http.StripPrefix("/manager", http.FileServer(http.FS(frontFS)))
+//
+//	assetsHandler := http.FileServer(http.FS(frontFS))
+//
+//	engine.AddRoutes(
+//		[]rest.Route{
+//			{
+//				Method: http.MethodGet,
+//				Path:   "/manager",
+//				Handler: func(w http.ResponseWriter, r *http.Request) {
+//					frontFileServer.ServeHTTP(w, r)
+//				},
+//			},
+//			{
+//				Method: http.MethodGet,
+//				Path:   "/manager/:path",
+//				Handler: func(w http.ResponseWriter, r *http.Request) {
+//					frontFileServer.ServeHTTP(w, r)
+//				},
+//			},
+//			{
+//				Method: http.MethodGet,
+//				Path:   "/manager/assets/:path",
+//				Handler: func(w http.ResponseWriter, r *http.Request) {
+//					frontFileServer.ServeHTTP(w, r)
+//				},
+//			},
+//			{
+//				Method: http.MethodGet,
+//				Path:   "/assets/:path",
+//				Handler: func(w http.ResponseWriter, r *http.Request) {
+//					assetsHandler.ServeHTTP(w, r)
+//				},
+//			},
+//		},
+//	)
+//}
 
 // 检查并创建日志目录
 func ensureLogDirectory(logDir string) error {
