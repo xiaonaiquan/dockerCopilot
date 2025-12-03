@@ -6,6 +6,7 @@ import (
 	"encoding/base64"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"dockerCopilot/internal/svc"
@@ -29,7 +30,7 @@ type Info struct {
 	CreateTime  string `json:"createTime"`
 	RunningTime string `json:"runningTime"`
 	HaveUpdate  bool   `json:"haveUpdate"`
-	LocalImage  string `json:"localImage"`
+	IconUrl     string `json:"iconUrl"`
 }
 
 func NewContainersListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ContainersListLogic {
@@ -37,6 +38,23 @@ func NewContainersListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Co
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
+	}
+}
+
+func getMimeType(ext string) string {
+	switch strings.ToLower(ext) {
+	case ".jpg", ".jpeg":
+		return "image/jpeg"
+	case ".png":
+		return "image/png"
+	case ".gif":
+		return "image/gif"
+	case ".webp":
+		return "image/webp"
+	case ".bmp":
+		return "image/bmp"
+	default:
+		return "image/png" // 默认使用png
 	}
 }
 
@@ -90,13 +108,16 @@ func (l *ContainersListLogic) ContainersList() (resp *types.Resp, err error) {
 			var imgData string
 			for _, ext := range exts {
 				p := filepath.Join(basePath, containerInfo.Name+ext)
+				logx.Infof("读取本地的图片 %s\n", p)
 				b, readErr := os.ReadFile(p)
 				if readErr == nil {
-					imgData = base64.StdEncoding.EncodeToString(b)
+					base64Data := base64.StdEncoding.EncodeToString(b)
+					mimeType := getMimeType(ext)
+					imgData = "data:" + mimeType + ";base64," + base64Data
 					break
 				}
 			}
-			containerInfo.LocalImage = imgData
+			containerInfo.IconUrl = imgData
 		}
 
 		containerInfoList = append(containerInfoList, containerInfo)

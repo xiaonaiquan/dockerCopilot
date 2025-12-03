@@ -17,6 +17,7 @@ ENV secretKey="" \
     DOCKER_HOST="unix:///var/run/docker.sock" \
     BACKUP_DIR="/data/backups" \
     TZ="Asia/Shanghai"
+    UPLOAD_DIR="/data/uploads"
 
 VOLUME ["/data"]
 # 设置启动命令

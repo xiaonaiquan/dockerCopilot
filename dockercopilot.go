@@ -98,7 +98,7 @@ func main() {
 		}
 	})
 	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)
-	logx.Info("程序版本" + config.Version)
+	logx.Info("程序版本:" + config.Version)
 	server.Start()
 }
 
