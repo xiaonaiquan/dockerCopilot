@@ -1,10 +1,10 @@
-VERSION := $(shell echo "v1.0.0-dev")
+VERSION := $(shell echo "v1.0.0")
 BUILD_DATE := $(shell date)
 LDFLAGS := -X 'dockerCopilot/internal/config.Version=$(VERSION)' -X 'dockerCopilot/internal/config.BuildDate=$(BUILD_DATE)'
 
 .PHONY: build
 build:
-	GOOS=linux GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o dockerCopilot-amd64 .
+	GOOS=linux GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o dockerCopilot .
 
 .PHONY: run
 run:

@@ -1,16 +1,17 @@
-# 使用 Alpine 作为基础镜像
-FROM alpine
+FROM nginx:alpine
+
 WORKDIR /app
 
-ARG TARGETPLATFORM
+# 拷贝后端
+COPY ../dockerCopilot /app/dockerCopilot
+COPY ../etc/. /app/etc
+COPY ../start.sh /app/start.sh
 
-COPY dc-back/dist/$TARGETPLATFORM/dockerCopilot ./dockerCopilot
-COPY dc-back/etc/. ./etc
-COPY start.sh ./start.sh
+# 拷贝前端静态资源
+COPY ../front/. /usr/share/nginx/html
 
-RUN apk add --no-cache tzdata \
-    && chmod +x start.sh \
-    && chmod +x dockerCopilot
+# 覆盖 nginx 配置
+COPY ../nginx.conf /etc/nginx/nginx.conf
 
 # 设置环境变量
 ENV secretKey="" \
@@ -19,6 +20,10 @@ ENV secretKey="" \
     TZ="Asia/Shanghai"
     UPLOAD_DIR="/data/uploads"
 
+# 暴露端口
+EXPOSE 80
+
 VOLUME ["/data"]
-# 设置启动命令
-CMD ["./start.sh"]
+
+# 启动后端 + nginx
+CMD ["/bin/sh", "-c", "/app/start.sh & nginx -g 'daemon off;'"]
