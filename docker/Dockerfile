@@ -17,7 +17,7 @@ COPY ../nginx.conf /etc/nginx/nginx.conf
 ENV secretKey="" \
     DOCKER_HOST="unix:///var/run/docker.sock" \
     BACKUP_DIR="/data/backups" \
-    TZ="Asia/Shanghai"
+    TZ="Asia/Shanghai" \
     UPLOAD_DIR="/data/uploads"
 
 # 暴露端口
