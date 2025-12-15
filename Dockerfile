@@ -3,15 +3,15 @@ FROM nginx:alpine
 WORKDIR /app
 
 # 拷贝后端
-COPY ../dockerCopilot /app/dockerCopilot
-COPY ../etc/. /app/etc
-COPY ../start.sh /app/start.sh
+COPY ./dockerCopilot /app/dockerCopilot
+COPY ./etc/. /app/etc
+COPY ./start.sh /app/start.sh
 
 # 拷贝前端静态资源
-COPY ../front/. /usr/share/nginx/html
+COPY ./front/. /usr/share/nginx/html
 
 # 覆盖 nginx 配置
-COPY ../nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
 # 设置环境变量
 ENV secretKey="" \
