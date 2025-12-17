@@ -13,6 +13,8 @@ COPY ./front/. /usr/share/nginx/html
 # 覆盖 nginx 配置
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
+RUN chmod +x /app/start.sh
+
 # 设置环境变量
 ENV secretKey="" \
     DOCKER_HOST="unix:///var/run/docker.sock" \
