@@ -1,4 +1,4 @@
-VERSION := $(shell echo "v1.0.0")
+VERSION := $(shell echo "v1.0.2")
 BUILD_DATE := $(shell date)
 LDFLAGS := -X 'dockerCopilot/internal/config.Version=$(VERSION)' -X 'dockerCopilot/internal/config.BuildDate=$(BUILD_DATE)'
 
