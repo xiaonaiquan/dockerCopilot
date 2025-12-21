@@ -155,6 +155,9 @@ service dockerCopilot {
 
 	@handler delRestore
 	delete /container/backups (DelContainerBackupReq) returns (Resp)
+
+	@handler delete
+	delete /container/:id/delete (IdReq) returns (Resp)
 }
 
 @server (

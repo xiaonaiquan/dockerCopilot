@@ -15,7 +15,7 @@ func GetRemoteVersion() (remoteVersion string, err error) {
 	if githubProxy != "" {
 		githubProxy = strings.TrimRight(githubProxy, "/") + "/"
 	}
-	versionURL := githubProxy + "https://raw.githubusercontent.com/onlyLTY/dockerCopilot/UGREEN/version"
+	versionURL := githubProxy + "https://gist.githubusercontent.com/xiaonaiquan/3c38650911997547c61a00bbaacc3117/raw/version"
 	remoteVersion, err = fetchVersionFromURL(versionURL)
 	if err != nil {
 		return "0.0.0", err

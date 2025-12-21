@@ -19,7 +19,7 @@ func UpdateProgram(ctx *svc.ServiceContext) error {
 	if githubProxy != "" {
 		githubProxy = strings.TrimRight(githubProxy, "/") + "/"
 	}
-	versionURL := githubProxy + "https://raw.githubusercontent.com/onlyLTY/dockerCopilot/UGREEN/version"
+	versionURL := githubProxy + "https://gist.githubusercontent.com/xiaonaiquan/3c38650911997547c61a00bbaacc3117/raw/version"
 	releaseBaseURL := githubProxy + "https://dockerCopilot/releases/download"
 	logx.Infof("versionURL: %s", versionURL)
 	resp, err := http.Get(versionURL)
