@@ -24,6 +24,10 @@ type CreateContainerReq struct {
 	ImageNameAndTag string `json:"image_name_and_tag"`
 }
 
+type CreateReq struct {
+	Yaml string `json:"yaml"`
+}
+
 type DelContainerBackupReq struct {
 	Filename string `form:"filename"`
 }
@@ -75,6 +79,10 @@ type StartContainerReq struct {
 
 type StopContainerReq struct {
 	Name string `json:"name"`
+}
+
+type TaskReq struct {
+	Uuid string `form:"uuid"`
 }
 
 type UploadReq struct {

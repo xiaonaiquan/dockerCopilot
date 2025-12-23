@@ -35,6 +35,10 @@ type CreateContainerReq {
 	ImageNameAndTag string `json:"image_name_and_tag"`
 }
 
+type CreateReq {
+	Yaml string `json:"yaml"`
+}
+
 type RemoveContainerReq {
 	Name string `json:"name"`
 }
@@ -93,6 +97,10 @@ type VersionReq {
 
 type UploadReq {
 	Name string `form:"name"`
+}
+
+type TaskReq {
+	Uuid string `form:"uuid"`
 }
 
 service dockerCopilot {
@@ -158,6 +166,9 @@ service dockerCopilot {
 
 	@handler delete
 	delete /container/:id/delete (IdReq) returns (Resp)
+
+	@handler create
+	post /container/create (CreateReq) returns (Resp)
 }
 
 @server (
@@ -186,5 +197,15 @@ service dockerCopilot {
 
 	@handler updateProgram
 	put /program returns (Resp)
+}
+
+@server (
+	prefix: /api
+	group:  task
+	jwt:    Auth
+)
+service dockerCopilot {
+	@handler taskProgress
+	get /tasklog (TaskReq) returns (Resp)
 }
 

@@ -10,6 +10,7 @@ import (
 	container "dockerCopilot/internal/handler/container"
 	image "dockerCopilot/internal/handler/image"
 	progress "dockerCopilot/internal/handler/progress"
+	task "dockerCopilot/internal/handler/task"
 	version "dockerCopilot/internal/handler/version"
 	"dockerCopilot/internal/svc"
 
@@ -91,6 +92,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: container.RestoreHandler(serverCtx),
 			},
 			{
+				Method:  http.MethodPost,
+				Path:    "/container/create",
+				Handler: container.CreateHandler(serverCtx),
+			},
+			{
 				Method:  http.MethodGet,
 				Path:    "/container/listBackups",
 				Handler: container.ListBackupsHandler(serverCtx),
@@ -133,6 +139,18 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: progress.GetProgressHandler(serverCtx),
 			},
 		},
+		rest.WithPrefix("/api"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/tasklog",
+				Handler: task.TaskProgressHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 		rest.WithPrefix("/api"),
 	)
 
